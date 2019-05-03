@@ -178,7 +178,7 @@ export class GoogleChartDataTableInner extends React.Component<
           label: dataTable.getColumnLabel(i),
           type: dataTable.getColumnType(i)
         };
-      }else{
+      } else {
         newColumns[i] = i;
       }
     }
@@ -189,7 +189,7 @@ export class GoogleChartDataTableInner extends React.Component<
 
     googleChartWrapper.setOptions(options);
     googleChartWrapper.setDataTable(dataTable);
-    googleChartWrapper.setView({columns: newColumns});
+    googleChartWrapper.setView({ columns: newColumns });
     googleChartWrapper.draw();
     if (this.props.googleChartDashboard !== null) {
       this.props.googleChartDashboard.draw(dataTable);
