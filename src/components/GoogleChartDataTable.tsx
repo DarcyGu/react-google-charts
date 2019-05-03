@@ -170,18 +170,16 @@ export class GoogleChartDataTableInner extends React.Component<
       dataTable = google.visualization.arrayToDataTable([]);
     }
     const columnCount = dataTable.getNumberOfColumns();
+    const newColumns = [];
     for (let i = 0; i < columnCount; i += 1) {
       const columnID = this.getColumnID(dataTable, i);
       if (this.state.hiddenColumns.includes(columnID)) {
-        const previousColumnLabel = dataTable.getColumnLabel(i);
-        const previousColumnID = dataTable.getColumnId(i);
-        const previousColumnType = dataTable.getColumnType(i);
-        dataTable.removeColumn(i);
-        dataTable.addColumn({
-          label: previousColumnLabel,
-          id: previousColumnID,
-          type: previousColumnType
-        });
+        newColumns[i] = {
+          label: dataTable.getColumnLabel(i),
+          type: dataTable.getColumnType(i)
+        };
+      }else{
+        newColumns[i] = i;
       }
     }
     const chart = googleChartWrapper.getChart();
@@ -191,6 +189,7 @@ export class GoogleChartDataTableInner extends React.Component<
 
     googleChartWrapper.setOptions(options);
     googleChartWrapper.setDataTable(dataTable);
+    googleChartWrapper.setView({columns: newColumns});
     googleChartWrapper.draw();
     if (this.props.googleChartDashboard !== null) {
       this.props.googleChartDashboard.draw(dataTable);

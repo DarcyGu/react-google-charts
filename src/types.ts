@@ -201,6 +201,7 @@ export type GoogleChartWrapper = {
   getSelection: () => { row?: any; column?: any }[];
   getView: () => {} | any[]; // Same format as toJSON
 
+  setView: (view_spec: any) => void;
   setDataSourceUrl: (url: string) => void;
   setDataTable: (table: any) => void;
   setChartType: (chartType: GoogleChartWrapperChartType) => void;
@@ -378,6 +379,7 @@ export type GoogleDataTable = {
     numberOrArray: GoogleDataTableRow[] | number
   ) => void;
   removeColumn: (columnIndex: number) => void;
+  setColumns: (columnIndexes: any[]) => void;
   removeColumns: (columnIndex: number, numberOfColumns: number) => void;
   removeRow: (rowIndex: number) => void;
   removeRows: (rowIndex: number, numberOfColumns: number) => void;
