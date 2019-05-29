@@ -31,13 +31,11 @@ export const chartDefaultProps = {
   getChartWrapper: (chartWrapper: GoogleChartWrapper, google: GoogleViz) => {},
   getChartEditor: null as
     | null
-    | ((
-        args: {
-          chartEditor: GoogleChartEditor;
-          chartWrapper: GoogleChartWrapper;
-          google: GoogleViz;
-        }
-      ) => void),
+    | ((args: {
+        chartEditor: GoogleChartEditor;
+        chartWrapper: GoogleChartWrapper;
+        google: GoogleViz;
+      }) => void),
   className: "",
   style: {},
   formatters: null,

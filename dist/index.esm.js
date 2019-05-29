@@ -343,7 +343,7 @@ var GoogleChartDataTableInner = (function (_super) {
                                 if (emptyColumns.length === columnCount_1 - 1) {
                                     dataTable.addColumn({
                                         label: removeEmptyColumns,
-                                        type: 'number'
+                                        type: "number"
                                     });
                                 }
                                 for (i = 0; i < emptyColumns.length; i++) {

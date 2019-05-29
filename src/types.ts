@@ -538,6 +538,7 @@ export type ReactGoogleChartProps = {
   graph_id?: string;
   legendToggle?: boolean;
   legend_toggle?: boolean;
+  removeEmptyColumns?: string;
   getChartWrapper?: (
     chartWrapper: GoogleChartWrapper,
     google: GoogleViz
@@ -625,6 +626,7 @@ export type ReactGoogleChartContext = {
   options: ReactGoogleChartProps["options"] | null;
   legend_toggle: ReactGoogleChartProps["legend_toggle"] | null;
   legendToggle: ReactGoogleChartProps["legendToggle"] | null;
+  removeEmptyColumns: ReactGoogleChartProps["removeEmptyColumns"] | null;
   chartType: ReactGoogleChartProps["chartType"] | null;
   formatters: ReactGoogleChartProps["formatters"] | null;
   spreadSheetUrl: ReactGoogleChartProps["spreadSheetUrl"] | null;

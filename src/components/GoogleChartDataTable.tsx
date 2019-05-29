@@ -171,30 +171,30 @@ export class GoogleChartDataTableInner extends React.Component<
       dataTable = google.visualization.arrayToDataTable([]);
     }
 
-    if(removeEmptyColumns){
+    if (removeEmptyColumns) {
       const columnCount = dataTable.getNumberOfColumns();
       const rowCount = dataTable.getNumberOfRows();
       const emptyColumns = [];
       for (let i = 0; i < columnCount; i += 1) {
-          let empty = true;
-          inner: for (let j = 0; j < rowCount; j++) {
-              if (dataTable.getValue(j, i) !== null) {
-                  empty = false;
-                  break inner;
-              }
+        let empty = true;
+        inner: for (let j = 0; j < rowCount; j++) {
+          if (dataTable.getValue(j, i) !== null) {
+            empty = false;
+            break inner;
           }
-          if(empty){
-              emptyColumns.push(i);
-          }
+        }
+        if (empty) {
+          emptyColumns.push(i);
+        }
       }
-      if(emptyColumns.length===columnCount-1){
-          dataTable.addColumn({
-            label: removeEmptyColumns,
-            type: 'number'
-          });
+      if (emptyColumns.length === columnCount - 1) {
+        dataTable.addColumn({
+          label: removeEmptyColumns,
+          type: "number"
+        });
       }
-      for(let i=0;i<emptyColumns.length;i++){
-          dataTable.removeColumn(emptyColumns[i]-i);
+      for (let i = 0; i < emptyColumns.length; i++) {
+        dataTable.removeColumn(emptyColumns[i] - i);
       }
     }
     const columnCount = dataTable.getNumberOfColumns();
