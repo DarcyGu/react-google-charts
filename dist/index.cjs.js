@@ -97,6 +97,7 @@ var chartDefaultProps = {
     diffdata: null,
     chartEvents: null,
     legendToggle: false,
+    removeEmptyColumns: null,
     chartActions: null,
     getChartWrapper: function (chartWrapper, google) { },
     getChartEditor: null,
@@ -294,9 +295,9 @@ var GoogleChartDataTableInner = (function (_super) {
                 dataTable.getColumnLabel(columnIndex));
         };
         _this.draw = function (_a) {
-            var data = _a.data, diffdata = _a.diffdata, rows = _a.rows, columns = _a.columns, options = _a.options, legend_toggle = _a.legend_toggle, legendToggle = _a.legendToggle, chartType = _a.chartType, formatters = _a.formatters, spreadSheetUrl = _a.spreadSheetUrl, spreadSheetQueryParameters = _a.spreadSheetQueryParameters;
+            var data = _a.data, diffdata = _a.diffdata, rows = _a.rows, columns = _a.columns, options = _a.options, legend_toggle = _a.legend_toggle, legendToggle = _a.legendToggle, removeEmptyColumns = _a.removeEmptyColumns, chartType = _a.chartType, formatters = _a.formatters, spreadSheetUrl = _a.spreadSheetUrl, spreadSheetQueryParameters = _a.spreadSheetQueryParameters;
             return __awaiter(_this, void 0, void 0, function () {
-                var _b, google, googleChartWrapper, dataTable, chartDiff, oldData, newData, columnCount, newColumns, i, columnID, chart;
+                var _b, google, googleChartWrapper, dataTable, chartDiff, oldData, newData, columnCount_1, rowCount, emptyColumns, i, empty, j, i, columnCount, newColumns, i, columnID, chart;
                 return __generator(this, function (_c) {
                     switch (_c.label) {
                         case 0:
@@ -329,6 +330,32 @@ var GoogleChartDataTableInner = (function (_super) {
                             dataTable = google.visualization.arrayToDataTable([]);
                             _c.label = 5;
                         case 5:
+                            if (removeEmptyColumns) {
+                                columnCount_1 = dataTable.getNumberOfColumns();
+                                rowCount = dataTable.getNumberOfRows();
+                                emptyColumns = [];
+                                for (i = 0; i < columnCount_1; i += 1) {
+                                    empty = true;
+                                    inner: for (j = 0; j < rowCount; j++) {
+                                        if (dataTable.getValue(j, i) !== null) {
+                                            empty = false;
+                                            break inner;
+                                        }
+                                    }
+                                    if (empty) {
+                                        emptyColumns.push(i);
+                                    }
+                                }
+                                if (emptyColumns.length === columnCount_1 - 1) {
+                                    dataTable.addColumn({
+                                        label: removeEmptyColumns,
+                                        type: 'number'
+                                    });
+                                }
+                                for (i = 0; i < emptyColumns.length; i++) {
+                                    dataTable.removeColumn(emptyColumns[i] - i);
+                                }
+                            }
                             columnCount = dataTable.getNumberOfColumns();
                             newColumns = [];
                             for (i = 0; i < columnCount; i += 1) {

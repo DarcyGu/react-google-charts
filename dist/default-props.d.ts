@@ -44,6 +44,7 @@ export declare const chartDefaultProps: {
     } | null;
     chartEvents: ReactGoogleChartEvent[] | null;
     legendToggle: boolean;
+    removeEmptyColumns: string | null;
     chartActions: GoogleChartAction[] | null;
     getChartWrapper: (chartWrapper: GoogleChartWrapper, google: GoogleViz) => void;
     getChartEditor: ((args: {

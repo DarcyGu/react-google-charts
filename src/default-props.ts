@@ -26,6 +26,7 @@ export const chartDefaultProps = {
   diffdata: null as null | { old: any; new: any },
   chartEvents: null as null | ReactGoogleChartEvent[],
   legendToggle: false,
+  removeEmptyColumns: null as null | string,
   chartActions: null as null | GoogleChartAction[],
   getChartWrapper: (chartWrapper: GoogleChartWrapper, google: GoogleViz) => {},
   getChartEditor: null as
