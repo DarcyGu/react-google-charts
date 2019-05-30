@@ -104,6 +104,7 @@ var chartDefaultProps = {
     className: "",
     style: {},
     formatters: null,
+    formatAll: null,
     spreadSheetUrl: null,
     spreadSheetQueryParameters: {
         headers: 1,
@@ -290,12 +291,64 @@ var GoogleChartDataTableInner = (function (_super) {
                 }
             }
         };
+        _this.applyFormatAll = function (dataTable, formatAll) {
+            var google = _this.props.google;
+            switch (formatAll.type) {
+                case "ArrowFormat": {
+                    var vizFormatter = new google.visualization.ArrowFormat(formatAll.options);
+                    for (var index = 1; index < dataTable.getNumberOfColumns(); index++) {
+                        vizFormatter.format(dataTable, index);
+                    }
+                    break;
+                }
+                case "BarFormat": {
+                    var vizFormatter = new google.visualization.BarFormat(formatAll.options);
+                    for (var index = 1; index < dataTable.getNumberOfColumns(); index++) {
+                        vizFormatter.format(dataTable, index);
+                    }
+                    break;
+                }
+                case "ColorFormat": {
+                    var vizFormatter = new google.visualization.ColorFormat(formatAll.options);
+                    var ranges = formatAll.ranges;
+                    for (var _i = 0, ranges_2 = ranges; _i < ranges_2.length; _i++) {
+                        var range = ranges_2[_i];
+                        vizFormatter.addRange.apply(vizFormatter, range);
+                    }
+                    for (var index = 1; index < dataTable.getNumberOfColumns(); index++) {
+                        vizFormatter.format(dataTable, index);
+                    }
+                    break;
+                }
+                case "DateFormat": {
+                    var vizFormatter = new google.visualization.DateFormat(formatAll.options);
+                    for (var index = 1; index < dataTable.getNumberOfColumns(); index++) {
+                        vizFormatter.format(dataTable, index);
+                    }
+                    break;
+                }
+                case "NumberFormat": {
+                    var vizFormatter = new google.visualization.NumberFormat(formatAll.options);
+                    for (var index = 1; index < dataTable.getNumberOfColumns(); index++) {
+                        vizFormatter.format(dataTable, index);
+                    }
+                    break;
+                }
+                case "PatternFormat": {
+                    var vizFormatter = new google.visualization.PatternFormat(formatAll.options);
+                    for (var index = 1; index < dataTable.getNumberOfColumns(); index++) {
+                        vizFormatter.format(dataTable, index);
+                    }
+                    break;
+                }
+            }
+        };
         _this.getColumnID = function (dataTable, columnIndex) {
             return (dataTable.getColumnId(columnIndex) ||
                 dataTable.getColumnLabel(columnIndex));
         };
         _this.draw = function (_a) {
-            var data = _a.data, diffdata = _a.diffdata, rows = _a.rows, columns = _a.columns, options = _a.options, legend_toggle = _a.legend_toggle, legendToggle = _a.legendToggle, removeEmptyColumns = _a.removeEmptyColumns, chartType = _a.chartType, formatters = _a.formatters, spreadSheetUrl = _a.spreadSheetUrl, spreadSheetQueryParameters = _a.spreadSheetQueryParameters;
+            var data = _a.data, diffdata = _a.diffdata, rows = _a.rows, columns = _a.columns, options = _a.options, legend_toggle = _a.legend_toggle, legendToggle = _a.legendToggle, removeEmptyColumns = _a.removeEmptyColumns, chartType = _a.chartType, formatters = _a.formatters, formatAll = _a.formatAll, spreadSheetUrl = _a.spreadSheetUrl, spreadSheetQueryParameters = _a.spreadSheetQueryParameters;
             return __awaiter(_this, void 0, void 0, function () {
                 var _b, google, googleChartWrapper, dataTable, chartDiff, oldData, newData, columnCount_1, rowCount, emptyColumns, i, empty, j, i, columnCount, newColumns, i, columnID, chart;
                 return __generator(this, function (_c) {
@@ -387,6 +440,11 @@ var GoogleChartDataTableInner = (function (_super) {
                             }
                             if (formatters !== null) {
                                 this.applyFormatters(dataTable, formatters);
+                                googleChartWrapper.setDataTable(dataTable);
+                                googleChartWrapper.draw();
+                            }
+                            if (formatAll !== null) {
+                                this.applyFormatAll(dataTable, formatAll);
                                 googleChartWrapper.setDataTable(dataTable);
                                 googleChartWrapper.draw();
                             }

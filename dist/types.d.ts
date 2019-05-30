@@ -398,6 +398,10 @@ export declare type ReactGoogleChartProps = {
         type: "ArrowFormat" | "BarFormat" | "ColorFormat" | "DateFormat" | "NumberFormat" | "PatternFormat";
         options?: {};
     }[];
+    formatAll?: {
+        type: "ArrowFormat" | "BarFormat" | "ColorFormat" | "DateFormat" | "NumberFormat" | "PatternFormat";
+        options?: {};
+    };
     spreadSheetUrl?: string;
     spreadSheetQueryParameters?: {
         headers: number;
@@ -448,6 +452,7 @@ export declare type ReactGoogleChartContext = {
     removeEmptyColumns: ReactGoogleChartProps["removeEmptyColumns"] | null;
     chartType: ReactGoogleChartProps["chartType"] | null;
     formatters: ReactGoogleChartProps["formatters"] | null;
+    formatAll: ReactGoogleChartProps["formatAll"] | null;
     spreadSheetUrl: ReactGoogleChartProps["spreadSheetUrl"] | null;
     spreadSheetQueryParameters: ReactGoogleChartProps["spreadSheetQueryParameters"] | null;
 };

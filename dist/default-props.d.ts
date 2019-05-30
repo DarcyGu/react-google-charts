@@ -55,6 +55,7 @@ export declare const chartDefaultProps: {
     className: string;
     style: {};
     formatters: null;
+    formatAll: null;
     spreadSheetUrl: null;
     spreadSheetQueryParameters: {
         headers: number;

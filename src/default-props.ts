@@ -39,6 +39,7 @@ export const chartDefaultProps = {
   className: "",
   style: {},
   formatters: null,
+  formatAll: null,
   spreadSheetUrl: null,
   spreadSheetQueryParameters: {
     headers: 1,

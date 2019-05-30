@@ -122,6 +122,70 @@ export class GoogleChartDataTableInner extends React.Component<
       }
     }
   };
+  private applyFormatAll = (dataTable: GoogleDataTable, formatAll: any) => {
+    const { google } = this.props;
+    
+    switch (formatAll.type) {
+      case "ArrowFormat": {
+        const vizFormatter = new google.visualization.ArrowFormat(
+          formatAll.options
+        );
+        for (let index = 1; index < dataTable.getNumberOfColumns(); index++) {
+          vizFormatter.format(dataTable, index);
+        }
+        break;
+      }
+      case "BarFormat": {
+        const vizFormatter = new google.visualization.BarFormat(
+          formatAll.options
+        );
+        for (let index = 1; index < dataTable.getNumberOfColumns(); index++) {
+          vizFormatter.format(dataTable, index);
+        }
+        break;
+      }
+      case "ColorFormat": {
+        const vizFormatter = new google.visualization.ColorFormat(
+          formatAll.options
+        );
+        const { ranges } = formatAll;
+        for (let range of ranges) {
+          vizFormatter.addRange(...range);
+        }
+        for (let index = 1; index < dataTable.getNumberOfColumns(); index++) {
+          vizFormatter.format(dataTable, index);
+        }
+        break;
+      }
+      case "DateFormat": {
+        const vizFormatter = new google.visualization.DateFormat(
+          formatAll.options
+        );
+        for (let index = 1; index < dataTable.getNumberOfColumns(); index++) {
+          vizFormatter.format(dataTable, index);
+        }
+        break;
+      }
+      case "NumberFormat": {
+        const vizFormatter = new google.visualization.NumberFormat(
+          formatAll.options
+        );
+        for (let index = 1; index < dataTable.getNumberOfColumns(); index++) {
+          vizFormatter.format(dataTable, index);
+        }
+        break;
+      }
+      case "PatternFormat": {
+        const vizFormatter = new google.visualization.PatternFormat(
+          formatAll.options
+        );
+        for (let index = 1; index < dataTable.getNumberOfColumns(); index++) {
+          vizFormatter.format(dataTable, index);
+        }
+        break;
+      }
+    }
+  };
   private getColumnID = (dataTable: GoogleDataTable, columnIndex: number) => {
     return (
       dataTable.getColumnId(columnIndex) ||
@@ -139,6 +203,7 @@ export class GoogleChartDataTableInner extends React.Component<
     removeEmptyColumns,
     chartType,
     formatters,
+    formatAll,
     spreadSheetUrl,
     spreadSheetQueryParameters
   }: ReactGoogleChartPropsWithDefaults) => {
@@ -229,6 +294,11 @@ export class GoogleChartDataTableInner extends React.Component<
     }
     if (formatters !== null) {
       this.applyFormatters(dataTable, formatters);
+      googleChartWrapper.setDataTable(dataTable);
+      googleChartWrapper.draw();
+    }
+    if (formatAll !== null) {
+      this.applyFormatAll(dataTable, formatAll);
       googleChartWrapper.setDataTable(dataTable);
       googleChartWrapper.draw();
     }

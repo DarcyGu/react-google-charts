@@ -15,6 +15,7 @@ export declare class GoogleChartDataTableInner extends React.Component<ReactGoog
     state: State;
     private listenToLegendToggle;
     private applyFormatters;
+    private applyFormatAll;
     private getColumnID;
     private draw;
     private grayOutHiddenColumns;
